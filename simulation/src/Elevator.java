@@ -5,12 +5,10 @@ public class Elevator {
     int currentFloor;
     boolean doorsOpen;
 
-    public Elevator(int elevatorId, Controller controller) {
+    public Elevator(Controller controller) {
         this.controller = controller;
-        this.elevatorId = elevatorId;
         this.currentFloor = 1;
         this.doorsOpen = false;
+        this.elevatorId = controller.getElevatorId();
     }
-
-
 }

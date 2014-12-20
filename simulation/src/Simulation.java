@@ -4,12 +4,12 @@ public class Simulation {
         final int floorCount = 8;
 
         // Initialize the controller
-        Controller controller = new Controller(elevatorCount, floorCount);
+        Controller controller = new Controller(floorCount);
 
         // Initialize the elevators
         Elevator[] elevators = new Elevator[elevatorCount];
-        for (int id = 0; id < elevatorCount; id++) {
-            elevators[id] = new Elevator(id, controller);
+        for (int i = 0; i < elevatorCount; i++) {
+            elevators[i] = new Elevator(controller);
         }
 
         controller.requestElevator(6);
