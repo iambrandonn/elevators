@@ -59,7 +59,11 @@ public class Controller {
         this.elevatorRefs = new ArrayList<ElevatorReference>();
     }
 
-    public int requestElevator(int floor) {
+    public int requestElevator(int floor) throws NoSuchFloorException {
+        if (floor > this.numFloors || floor < 1) {
+            throw new NoSuchFloorException("Floor doesn't exist");
+        }
+
         // See if any elevators are currently waiting at the given floor
         ListIterator<ElevatorReference> iterator =  this.elevatorRefs.listIterator();
         while (iterator.hasNext()) {
@@ -124,5 +128,13 @@ public class Controller {
         int newId = this.elevatorRefs.size();
         this.elevatorRefs.add(new ElevatorReference(newId, elevator));
         return newId;
+    }
+
+    public void transportOccupants(int elevatorId, int destinationFloor) throws NoSuchFloorException {
+        if (destinationFloor > numFloors || destinationFloor < 1) {
+            throw new NoSuchFloorException("Floor doesn't exist");
+        }
+        ElevatorReference ref = this.elevatorRefs.get(elevatorId);  // Making assumption they IDs are as created.  Should be more robust...
+        ref.elevator.sendElevator(destinationFloor);
     }
 }
