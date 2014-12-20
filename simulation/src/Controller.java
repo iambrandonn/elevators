@@ -10,8 +10,19 @@ public class Controller {
         private boolean doorsOpen;
         private Direction direction;
         private final int id;
+        private Elevator elevator;
 
-        public ElevatorReference(int id) {
+        public int getTargetFloor() {
+            return targetFloor;
+        }
+
+        public void setTargetFloor(int targetFloor) {
+            this.targetFloor = targetFloor;
+        }
+
+        private int targetFloor;
+
+        public ElevatorReference(int id, Elevator elevator) {
             this.id = id;
             this.direction = Direction.NotMoving;
         }
@@ -56,9 +67,24 @@ public class Controller {
                 return ref.getId();
             }
         }
-//        for (int i = 0; i < this.elevatorRefs.size(); i++) {
-//            if (this.elevatorRefs.)
-//        }
+
+        // See if there are any elevators moving that will pass this floor
+        iterator = this.elevatorRefs.listIterator();
+        while (iterator.hasNext()) {
+            ElevatorReference ref = iterator.next();
+            if (ref.getCurrentFloor() > floor && ref.direction == Direction.Down && ref.getTargetFloor() < floor) {
+                return ref.getId();
+            }
+            if (ref.getCurrentFloor() < floor && ref.direction == Direction.Up && ref.getTargetFloor() > floor) {
+                return ref.getId();
+            }
+        }
+
+        // Find the closest free elevator to send
+
+
+        // If all elevators are busy, queue the one that will end closest to this floor
+
 
         return -1;
     }
@@ -69,12 +95,9 @@ public class Controller {
         ref.setDoorsOpen(doorsOpen);
     }
 
-    public int getElevatorId() {
+    public int getElevatorId(Elevator elevator) {
         int newId = this.elevatorRefs.size();
-        this.elevatorRefs.add(new ElevatorReference(newId));
+        this.elevatorRefs.add(new ElevatorReference(newId, elevator));
         return newId;
     }
-
-
-
 }
