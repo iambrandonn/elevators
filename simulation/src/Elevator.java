@@ -30,8 +30,7 @@ public class Elevator {
         while (this.currentFloor != floor) {
             try {
                 Thread.sleep(1000);
-            } catch (InterruptedException ie) {
-            }
+            } catch (InterruptedException ie) {}
 
             if (this.direction == Direction.Down) {
                 this.currentFloor--;
@@ -47,6 +46,7 @@ public class Elevator {
     }
 
     private void updateStatus() {
+        System.out.println("Elevator " + this.elevatorId + " on floor " + this.currentFloor + " with doors " + (this.doorsOpen ? "open":"closed"));
         this.controller.updateElevatorStatus(this.elevatorId, this.currentFloor, this.doorsOpen);
     }
 }

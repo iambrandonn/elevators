@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.ListIterator;
-import java.util.Queue;
+import java.util.*;
 
 public class Controller {
     private int numFloors;
@@ -57,6 +55,7 @@ public class Controller {
         this.numFloors = numFloors;
 
         this.elevatorRefs = new ArrayList<ElevatorReference>();
+        this.queuedRequests = new LinkedList<Integer>();
     }
 
     public int requestElevator(int floor) throws NoSuchFloorException {
